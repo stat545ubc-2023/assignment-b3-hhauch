@@ -1,47 +1,49 @@
-
+#Loading data and packages
 library(shiny)
 library("gapminder")
 library(tidyverse)
 library(DT)
 library(shinythemes)
 
-gmds <- gapminder
-
-# Define UI for application that draws a histogram
+# defining UI
 ui <- fluidPage(
-  theme = shinytheme("cerulean"),
+  theme = shinytheme("cerulean"), #theme for the UI
     # Application title
     titlePanel("Assignment B3 - Gapminder Shiny App"),
-    h1("Gapminder Data Set"),
+    #Page title
+  h1("Gapminder Data Set"),
+  #subtitle
     h3("Visual Presentation of the Gapminder Data Set with Ability to Select for Life Expectancy"),
-    # Sidebar with a slider input for number of bins
+    # Sidebar with a slider input for Life Expectancy
     sidebarLayout(
         sidebarPanel(
-            sliderInput("Life_Exp_Slider",
-                        "Life Expectancy Range:",
-                        min = 23,
-                        max = 83,
-                        value = c(23,83)
+            sliderInput("Life_Exp_Slider", #Feature 1: Adding an input slider is useful as it allows participants to select the ranges of life expectancy they are curious about and see that data presented in the plot or on the interactive table.
+                        "Life Expectancy Range:", #title of slider
+                        min = 23, #minimum value
+                        max = 83, #maximum value
+                        value = c(23,83) #beginning set shows all data
 
-        ),  downloadButton("downloadGapminder", "Download Selected Data")
+        ),  downloadButton("downloadGapminder", "Download Selected Data") #Feature 2: Adding a download button allows app visitors to select for data using the interactive table and then download the data they selected for.
         ),
 
 
-        # Show a plot of the generated distribution
+    #main panel with plot on one tab and interactive data table on another
       mainPanel(
-        tabsetPanel(
-          tabPanel("Life Expectancy vs. GDP Plot", plotOutput("LEGDP_pointplot")),
-          tabPanel("Table", DT::dataTableOutput("gm_table"))
+        tabsetPanel( #adding tabs
+          tabPanel("Life Expectancy vs. GDP Plot", plotOutput("LEGDP_pointplot")), #first tab with life expectancy plot
+          tabPanel("Table", DT::dataTableOutput("gm_table")) #second tab with interactive data table
         )
     )
 ))
 
-# Define server logic required to draw a histogram
+#defining server-------------------------------------------------------
 server <- function(input, output) {
-  filter_gapminder <- reactive({gapminder %>%
+ #creating data
+   filter_gapminder <- reactive({gapminder %>%
     filter(lifeExp < input$Life_Exp_Slider[2],
            lifeExp > input$Life_Exp_Slider[1])})
 
+   #creating output for plot
   output$LEGDP_pointplot <- renderPlot ({
     ggplot(filter_gapminder(), aes(gdpPercap, lifeExp)) +
     geom_point(aes(color = continent), alpha = 0.3) +
@@ -49,17 +51,16 @@ server <- function(input, output) {
     ylab("Life Expectancy")
 
   })
-
+  #creating output for table
   output$gm_table <- DT::renderDataTable({filter_gapminder()
-  })
+  }) #Feature 3: Creating an interactive table allows app visitors to select the data they want to see presented in the table.
 
+  #creating output for download button
   output$downloadGapminder <- downloadHandler(
     filename = function() {
-      # Use the selected dataset as the suggested file name
       paste0(input$dataset, ".csv")
     },
     content = function(file) {
-      # Write the dataset to the `file` that will be downloaded
       write.csv(filter_gapminder(), file)
     }
   )
