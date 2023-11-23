@@ -3,7 +3,7 @@
 ## Gapminder Shiny App Discription :page_with_curl:
 
 The [Gapminder Shiny App](https://hannahhauch.shinyapps.io/ShinyAppB3/) displays a plot that shows life expectancy and GPD per capita. The life expectancy 
-presented in the plot can be adjusted using a slider tool. The slider tool also affects the data presented in the interactive table seen in the Table tab.  The app contains multiple features:
+presented in the plot can be adjusted using a slider tool. The slider tool also affects the data presented in the interactive table seen in the *Table* tab.  The app contains multiple features:
 1. Slider Tool: allows user to select for life expectancy data
 2. Download button: The selected data can be downloaded using the **download selected data** button.  
 3. Interactive Table: The interactive table can be used to see data for specific years, continents, or countries.
