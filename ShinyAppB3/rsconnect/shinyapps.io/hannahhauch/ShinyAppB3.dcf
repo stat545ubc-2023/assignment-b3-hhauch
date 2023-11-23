@@ -5,7 +5,7 @@ account: hannahhauch
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10594673
-bundleId: 7960191
+bundleId: 7960272
 url: https://hannahhauch.shinyapps.io/ShinyAppB3/
 version: 1
 asMultiple: FALSE
