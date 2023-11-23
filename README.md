@@ -14,7 +14,7 @@ And more features such as a theme and multiple tabs.
 
 The full written link for the app is: https://hannahhauch.shinyapps.io/ShinyAppB3/
 
-The is a data package with an excerpt from the [Gapminder](https://www.gapminder.org/data/) data. The data set used to make this shinyapp can be installed by 'install.packages("gapminder")' and the called through 'library(gapminder)'.
+The shinyapp was created with a data package with an excerpt from the [Gapminder](https://www.gapminder.org/data/) data. The data set used to make this shinyapp can be installed by 'install.packages("gapminder")' and the called through 'library(gapminder)'.
 
 The code in this repository is written in R and can be run in Rstudio. The files in this repository require Rstudio and R. To execute the files, the repository can be locally cloned or downloaded and the files can be opened in RStudio. The files use multiple packages (shiny, gapminder, tidyverse, DT, shinythemes). If needed install packages using: install.packages("package name"). To knit the files click knit in Rstudio and the files will be converted to markdown files.
 
