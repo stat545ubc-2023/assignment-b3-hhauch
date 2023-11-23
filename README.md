@@ -10,7 +10,7 @@ presented in the plot can be adjusted using a slider tool. The slider tool also 
 
 And more features such as a theme and multiple tabs.  
 
-[Access Gapminder Shiny App Here](https://hannahhauch.shinyapps.io/ShinyAppB3/):earth_americas:
+:earth_americas: [Access Gapminder Shiny App Here](https://hannahhauch.shinyapps.io/ShinyAppB3/) :earth_americas:
 
 The full written link for the app is: https://hannahhauch.shinyapps.io/ShinyAppB3/
 
