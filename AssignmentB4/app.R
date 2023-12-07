@@ -33,7 +33,7 @@ ui <- fluidPage(
   theme = shinytheme("journal"), #theme for the UI
 
   #navigation bar
-  navbarPage("Antibiotic Use Livestock",
+  navbarPage("Antibiotic Use Livestock", #Feature 4: Navigation Bar - splits up the app into tabs which is more user friendly and aesthetic
               #panels in nav bar
              tabPanel("Welcome",
                #page title
@@ -42,7 +42,7 @@ ui <- fluidPage(
                 #into to the app and image
                 fluidRow(
                   column(12,
-                         img(src='FT_-_Antibiotics_v3-770x462.jpg', align = "right"),
+                         img(src='FT_-_Antibiotics_v3-770x462.jpg', align = "right"), #Feature 6: Image - this feature adds to the aesthetics of the app and provides more context for the user
                          p("This shiny app presents the use of antibiotics in livestock. The purpose of this app is to allow users to explore the Antibiotic Use in Livestock Data Set and to see antibiotic use in mulitple countries and the trends in antibiotic use in livestock. The dataset is from owid-datasets and is comprised of multiple sources.
                            Primarly the European Commision and Van Boeckel et al. Antibiotic use in livestock can potentially lead to anitbiotic resistant strains of harmful
                            bacteria that can cause severe and untreatable disease in human and animals. Image from foodtank.com. "))
@@ -90,7 +90,7 @@ ui <- fluidPage(
                          p("Use drop down menu to select country"))
                 ),
 
-                #Feature 2: Drop down menu - allows users to select country of intrest
+                #Feature 5: Drop down menu - allows users to select country of interest
                 fluidRow(
                   column(3, align = "center",
                          selectInput("country", "Country",
@@ -120,9 +120,9 @@ ui <- fluidPage(
       tabPanel("Table",
                #instructions
                p("Use the search bar to search by year or country."),
-               #Feature 3: Creating an interactive table allows app visitors to select the data they want to see presented.
+               #Feature 2: Creating an interactive table allows app visitors to select the data they want to see presented.
                DT::dataTableOutput("ab_table"),
-               #download button to download selected data from table
+               #Feature 3: download button to download selected data from table
                downloadButton("downloadab.use.ls", "Download Selected Data")
 
 )))
