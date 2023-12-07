@@ -120,7 +120,7 @@ ui <- fluidPage(
                p("Use the search bar to search by year or country."),
                #Feature 2: Creating an interactive table allows app visitors to select the data they want to see presented.
                DT::dataTableOutput("ab_table"),
-               #Feature 3: download button to download selected data from table
+               #Feature 3: download button to download data
                downloadButton("downloadab.use.ls", "Download Selected Data")
 
 )))
@@ -169,8 +169,7 @@ server <- function(input, output) {
 
   #creates download button
   output$downloadab.use.ls <- downloadHandler(
-    filename = function() {
-      paste0(input$dataset,".csv")
+    filename = function() {"Antibioticuselivestock.csv"
     },
     content = function(file) {
       write.csv(ab.use.ls, file)
