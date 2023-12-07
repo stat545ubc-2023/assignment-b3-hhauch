@@ -5,7 +5,7 @@ account: hannahhauch
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10741103
-bundleId:
+bundleId: 8019059
 url: https://hannahhauch.shinyapps.io/AssignmentB4/
 version: 1
 asMultiple: FALSE
