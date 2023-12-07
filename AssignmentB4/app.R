@@ -15,16 +15,16 @@ library(shinythemes)
 
 ab.use.ls <- read.csv("Antibiotic use in livestock - European Commission & Van Boeckel et al..csv")
 
+#creating tibble that only contains countie with data across multiple years to make trend line graph
 ab.use.ls.trend <- ab.use.ls %>%
   group_by(Entity) %>%
   mutate(count = n()) %>%
   filter(count > 1)
 
+#creating tibble that shows average antibiotic use by year to create trend by year line graph
 ab.use.ls.avg <- ab.use.ls %>%
   group_by(Year) %>%
   summarise(year_avg = mean(Antibiotic.use.in.livestock))
-
- #reads cvs
 
 
 # Define UI----------------------------
@@ -34,12 +34,16 @@ ui <- fluidPage(
 
   #navigation bar
   navbarPage("Antibiotic Use Livestock",
-       tabPanel("Welcome",
+              #panels in nav bar
+             tabPanel("Welcome",
+               #page title
                 h2("Antibiotic Use in Livestock"),
+
+                #into to the app and image
                 fluidRow(
                   column(12,
                          img(src='FT_-_Antibiotics_v3-770x462.jpg', align = "right"),
-                         p("This shiny app presents the use of antibiotics in livestock. The dataset is from owid-datasets and is comprised of multiple sources.
+                         p("This shiny app presents the use of antibiotics in livestock. The purpose of this app is to allow users to explore the Antibiotic Use in Livestock Data Set and to see antibiotic uses in mulitple countries and the trends in antibiotic use in livestock. The dataset is from owid-datasets and is comprised of multiple sources.
                            Primarly the European Commision and Van Boeckel et al. Antibiotic use in livestock can potentially lead to anitbiotic resistant strains of harmful
                            bacteria that can cause severe and untreatable disease in human and animals. Image from foodtank.com. "))
                 ),
@@ -47,17 +51,20 @@ ui <- fluidPage(
                 ),
 
 
-        #World Overview panel
+        #Use by year panel
         tabPanel("Bar Graph",
-
+            #title
              h2("World Livestock Antibiotic Bar Graph"),
-                  fluidRow(
+            #slider instructions
+            fluidRow(
                       column(12,
                             p("Use the slider to visualize the use of antibiotics in livestock by year"))
                       ),
 
 
             #create slider
+            #Feature 1: Adding an input slider is useful as it allows participants
+            #to select years they are curious about and see that data presented in the bar graph
                   fluidRow(
                     column(4,
                            sliderInput("year_slider",
@@ -67,7 +74,7 @@ ui <- fluidPage(
                                        value = 2012,
                                        sep =""
                     )),
-
+                  #bar graph
                     column(12, align = "center",
                            plotOutput("bar"))
                     ),
@@ -75,29 +82,33 @@ ui <- fluidPage(
 
 
        tabPanel("Trends",
+                #page title
                 h2("Livestock Antibiotic Usage by Country"),
+                #instructions
                 fluidRow(
                   column(12,
                          p("Use drop down menu to select country"))
                 ),
 
-
+                #Feature 2: Drop down menu - allows users to select country of intrest
                 fluidRow(
                   column(3, align = "center",
                          selectInput("country", "Country",
                                      choices = unique(ab.use.ls.trend$Entity),
-                                     selected = "Belgium")# default selection,
+                                     selected = "Belgium") #default selection,
 
        ),
+       #line graph showing country selected from drop down
        column(12,
               plotOutput("linegraph")),
        ),
-
+      #note on the data
        fluidRow(
          column(12,
                 p(strong("Note:"),
                 "Only countries with data from more than 1 year are shown in the drop down menu, to visualize data from all countries please use the interactive table under the Table tab")
        ),
+       #fixed graph showing average use of antibiotic over time
        fluidRow(
          column(12,
                 h3("Avgerage Livestock Antibiotic Usage between 2010 and 2015"),
@@ -105,53 +116,60 @@ ui <- fluidPage(
 
 
 )),
+
       tabPanel("Table",
+               #instructions
                p("Use the search bar to search by year or country."),
+               #Feature 3: Creating an interactive table allows app visitors to select the data they want to see presented.
                DT::dataTableOutput("ab_table"),
+               #download button to download selected data from table
                downloadButton("downloadab.use.ls", "Download Selected Data")
 
 )))
 
-# Define server logic required to draw a histogram
+#server ---------------------------------------------------
 server <- function(input, output) {
 
 
-  # creates  map
+  # creates  bar graph
   output$bar = renderPlot ({
-    ab.use.ls.year <- filter(ab.use.ls, Year == input$year_slider)
-    ggplot(ab.use.ls.year, aes(Entity, Antibiotic.use.in.livestock, fill = Entity)) +
-      geom_col(aes(color = Entity))+
-      theme(legend.position="none")+
-      ylab("Antibiotic Use (mg/kg meat) ") +
+    ab.use.ls.year <- filter(ab.use.ls, Year == input$year_slider) #filter data by slider
+    ggplot(ab.use.ls.year, aes(Entity, Antibiotic.use.in.livestock, fill = Entity)) + #create plot
+      geom_col(aes(color = Entity))+ #column graph
+      theme(legend.position="none")+ #remove country legend
+      ylab("Antibiotic Use (mg/kg meat) ") + #adding labels
       xlab("Country")
 
 
   })
-
+  #creates country line graph
   output$linegraph = renderPlot ({
-   ab.use.ls.trend <- filter(ab.use.ls, Entity == input$country)
-   min <- as.numeric(min(ab.use.ls.trend$Year, na.rm=TRUE))
+   ab.use.ls.trend <- filter(ab.use.ls, Entity == input$country) #filter by drop down menu
+   min <- as.numeric(min(ab.use.ls.trend$Year, na.rm=TRUE)) #sets x-axis limits
    max <- as.numeric(max(ab.use.ls.trend$Year, na.rm=TRUE))
-     ggplot(ab.use.ls.trend, aes(Year, Antibiotic.use.in.livestock)) +
-      geom_line(size = 2) +
-       geom_point(size = 5) +# line size
-      ggtitle(paste("Antibiotic Use in", input$country)) +
-       scale_x_continuous(breaks = seq(min, max, by = 1)) +
-      labs(x = "Year", y = "Antibiotic Use (mg/kg meat)")
+     ggplot(ab.use.ls.trend, aes(Year, Antibiotic.use.in.livestock)) + #creates plot
+      geom_line(size = 2) + #line size
+       geom_point(size = 5) +#point size
+      ggtitle(paste("Antibiotic Use in", input$country)) + #title
+      scale_x_continuous(breaks = seq(min, max, by = 1)) + #sets x-axis increments
+      labs(x = "Year", y = "Antibiotic Use (mg/kg meat)") #labels
   })
 
+  #creates year line graph
   output$line_year = renderPlot ({
-    ggplot(ab.use.ls.avg, aes(Year, year_avg)) +
-      geom_line(size = 2) +
-      geom_point(size = 5) +
-      ylab("Antibiotic Use (mg/kg meat)")
+    ggplot(ab.use.ls.avg, aes(Year, year_avg)) + #creates plot
+      geom_line(size = 2) + #line size
+      geom_point(size = 5) + #point size
+      ylab("Antibiotic Use (mg/kg meat)") #y-axis label
 
 
   })
 
+  #creates interactive table
   output$ab_table <- DT::renderDataTable({ab.use.ls
   })
 
+  #creates download button
   output$downloadab.use.ls <- downloadHandler(
     filename = function() {
       paste0(input$dataset,".csv")
