@@ -18,8 +18,7 @@ The shinyapp was created with a data package with an excerpt from the [Gapminder
 
 ## Assignment B4: Antibiotic Use in Livestock Shiny App Discription :pill: 
 
-For Assignment B4 I created a new Shiny App from **scratch**. The purpose of this app is to allow users to explore the Antibiotic Use in Livestock Data Set and to see antibiotic use in multiple countries and the trends in antibiotic use in livestock. The dataset is from owid-datasets and is comprised of multiple sources.
-                           Primarly the European Commision and Van Boeckel et al.
+For Assignment B4 I created a new Shiny App from **scratch**. The purpose of this app is to allow users to explore the Antibiotic Use in Livestock Data Set and to see antibiotic use in multiple countries and the trends in antibiotic use in livestock by year and country. The data set is from owid-datasets and is comprised of multiple sources: Primarly the European Commision and Van Boeckel et al.
 
 The Shiny app can be accessed [here](https://hannahhauch.shinyapps.io/AssignmentB4/). 
 
@@ -29,9 +28,9 @@ Multiple features were included in this shiny app, three features also used in A
 3. Download button: Allows user to download the selected data from interactive table
 
 Three novel features for Assignment B4 are: 
-4. Navigation bar: splits up the app into tabs which is more user friendly and aesthetic
-5. Drop Down Menu: allows users to select country of interest for trend graphs
-6. Image: provides visuals and context to user
+1. Navigation bar: splits up the app into tabs which is more user friendly and aesthetic
+2. Drop Down Menu: allows users to select country of interest for trend graphs
+3. Image: provides visuals and context to user
 
 Other features include: theme
 
