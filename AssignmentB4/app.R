@@ -2,8 +2,6 @@
 library(shiny)
 library(ggplot2)
 library(dplyr)
-library(maps)
-library(wesanderson)
 library(rsconnect)
 library(tidyverse)
 library(DT)
