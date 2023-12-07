@@ -43,7 +43,7 @@ ui <- fluidPage(
                 fluidRow(
                   column(12,
                          img(src='FT_-_Antibiotics_v3-770x462.jpg', align = "right"),
-                         p("This shiny app presents the use of antibiotics in livestock. The purpose of this app is to allow users to explore the Antibiotic Use in Livestock Data Set and to see antibiotic uses in mulitple countries and the trends in antibiotic use in livestock. The dataset is from owid-datasets and is comprised of multiple sources.
+                         p("This shiny app presents the use of antibiotics in livestock. The purpose of this app is to allow users to explore the Antibiotic Use in Livestock Data Set and to see antibiotic use in mulitple countries and the trends in antibiotic use in livestock. The dataset is from owid-datasets and is comprised of multiple sources.
                            Primarly the European Commision and Van Boeckel et al. Antibiotic use in livestock can potentially lead to anitbiotic resistant strains of harmful
                            bacteria that can cause severe and untreatable disease in human and animals. Image from foodtank.com. "))
                 ),
